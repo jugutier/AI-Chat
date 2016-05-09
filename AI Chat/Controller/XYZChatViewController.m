@@ -52,13 +52,6 @@
     UINib *invoiceNib = [XYZInvoiceView nib];
     NSString *invoiceIdentifier = [XYZInvoiceView cellReuseIdentifier];
     [self.collectionView  registerNib:invoiceNib forCellWithReuseIdentifier:invoiceIdentifier];
-    
-    
-//    QBChatMessage *message = [[XYZInvoiceService sharedInstance]invoiceForCustomer:@"1234"];
-//    message.senderID = QMMessageTypeInvoice;
-//    message.dateSent = [NSDate date];
-//    
-//    [self.chatSectionManager addMessage:message];
 }
 
 #pragma mark - XYZAIServiceDelegate
@@ -102,6 +95,7 @@
         
         QBChatMessage* message = [QBChatMessage new];
         message.senderID = self.senderID;
+        message.dateSent = [NSDate date];
         
         QBChatAttachment *attacment = [[QBChatAttachment alloc] init];
         attacment.url = imagePath;
@@ -169,16 +163,6 @@
     return nil;
 }
 
-//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    QMChatCell * cell = (QMChatCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
-//    XYZInvoiceVM *item = (XYZInvoiceVM *) [self.chatSectionManager messageForIndexPath:indexPath];
-//    XYZInvoiceView * invoiceView = [[XYZInvoiceView alloc]init];
-//    [invoiceView populateFromViewModel:item];
-//    [cell.containerView addSubview:invoiceView];
-//    
-//    return cell;
-//}
 
 - (CGSize)collectionView:(QMChatCollectionView *)collectionView dynamicSizeAtIndexPath:(NSIndexPath *)indexPath maxWidth:(CGFloat)maxWidth {
        
@@ -233,9 +217,8 @@
 - (void)collectionView:(QMChatCollectionView *)collectionView configureCell:(UICollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
     
+    QBChatMessage* message = [self.chatSectionManager messageForIndexPath:indexPath];
     if ([cell conformsToProtocol:@protocol(QMChatAttachmentCell)]) {
-        QBChatMessage* message = [self.chatSectionManager messageForIndexPath:indexPath];
-        
         if (message.attachments != nil) {
             QBChatAttachment* attachment = message.attachments.firstObject;
             NSData *imageData = [NSData dataWithContentsOfFile:attachment.url];
@@ -243,6 +226,11 @@
             
             [cell updateConstraints];
         }
+    }
+    
+    if ([message conformsToProtocol:@protocol(XYZInvoiceViewModel)]) {
+        [(XYZInvoiceView *)cell populateFromViewModel:(XYZInvoiceVM *)message];        
+        [cell updateConstraints];
     }
     
     [super collectionView:collectionView configureCell:cell forIndexPath:indexPath];
