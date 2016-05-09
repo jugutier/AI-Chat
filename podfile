@@ -1,2 +1,4 @@
 platform :ios, '8.0'
 pod 'QuickBlox', '~> 2.7'
+pod 'QMChatViewController'
+pod 'Onboard'

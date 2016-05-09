@@ -1,0 +1,17 @@
+//
+//  AIChat-prefix.pch
+//  AI Chat
+//
+//  Created by Julian Gutierrez on 5/8/16.
+//  Copyright © 2016 Company Inc. All rights reserved.
+//
+
+#ifdef __OBJC__
+
+#import "UIImage+fixOrientation.h"
+#import "UIFont+AIChat.h"
+#import "UIColor+AIChat.h"
+
+#import <Quickblox/Quickblox.h>
+
+#endif

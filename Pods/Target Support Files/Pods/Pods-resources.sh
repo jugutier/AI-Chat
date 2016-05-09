@@ -57,6 +57,30 @@ install_resource()
       ;;
   esac
 }
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "QMChatViewController/QMChatViewController/en.lproj/QMChatViewController.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatAttachmentIncomingCell/QMChatAttachmentIncomingCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatAttachmentOutgoingCell/QMChatAttachmentOutgoingCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatContactRequestCell/QMChatContactRequestCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatIncomingCell/QMChatIncomingCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatNotificationCell/QMChatNotificationCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatOutgoingCell/QMChatOutgoingCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/CustomUI/InputToolBar/QMToolbarContentView.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/CustomUI/QMHeaderCollectionReusableView/QMHeaderCollectionReusableView.xib"
+  install_resource "QMChatViewController/QMChatViewController/ChatAssets.xcassets"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "QMChatViewController/QMChatViewController/en.lproj/QMChatViewController.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatAttachmentIncomingCell/QMChatAttachmentIncomingCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatAttachmentOutgoingCell/QMChatAttachmentOutgoingCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatContactRequestCell/QMChatContactRequestCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatIncomingCell/QMChatIncomingCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatNotificationCell/QMChatNotificationCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/Cells/QMChatOutgoingCell/QMChatOutgoingCell.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/CustomUI/InputToolBar/QMToolbarContentView.xib"
+  install_resource "QMChatViewController/QMChatViewController/Views/CustomUI/QMHeaderCollectionReusableView/QMHeaderCollectionReusableView.xib"
+  install_resource "QMChatViewController/QMChatViewController/ChatAssets.xcassets"
+fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

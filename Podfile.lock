@@ -1,10 +1,54 @@
 PODS:
+  - QMChatViewController (0.3.7):
+    - QMChatViewController/Categories (= 0.3.7)
+    - QMChatViewController/KeyboardViewController (= 0.3.7)
+    - QMChatViewController/Protocols (= 0.3.7)
+    - QMChatViewController/Sections (= 0.3.7)
+    - QMChatViewController/Utils (= 0.3.7)
+    - QMChatViewController/Views (= 0.3.7)
+    - QuickBlox (>= 2.0)
+    - SDWebImage (~> 3.6)
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Categories (0.3.7):
+    - QuickBlox (>= 2.0)
+    - SDWebImage (~> 3.6)
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/KeyboardViewController (0.3.7):
+    - QuickBlox (>= 2.0)
+    - SDWebImage (~> 3.6)
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Protocols (0.3.7):
+    - QuickBlox (>= 2.0)
+    - SDWebImage (~> 3.6)
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Sections (0.3.7):
+    - QuickBlox (>= 2.0)
+    - SDWebImage (~> 3.6)
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Utils (0.3.7):
+    - QuickBlox (>= 2.0)
+    - SDWebImage (~> 3.6)
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Views (0.3.7):
+    - QMChatViewController/Categories
+    - QMChatViewController/Protocols
+    - QuickBlox (>= 2.0)
+    - SDWebImage (~> 3.6)
+    - TTTAttributedLabel (~> 1.13)
   - QuickBlox (2.7.2)
+  - SDWebImage (3.7.6):
+    - SDWebImage/Core (= 3.7.6)
+  - SDWebImage/Core (3.7.6)
+  - TTTAttributedLabel (1.13.4)
 
 DEPENDENCIES:
+  - QMChatViewController
   - QuickBlox (~> 2.7)
 
 SPEC CHECKSUMS:
+  QMChatViewController: 12b47730905d9ae27ee21368a288a73b4315a2ae
   QuickBlox: 99d8b2db8df393e6b38e601a9d3ed2d0dd4b4db3
+  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
 
 COCOAPODS: 0.39.0
