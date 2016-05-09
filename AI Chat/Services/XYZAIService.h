@@ -27,5 +27,5 @@
 /**
  * Process user text, using patterns that compile to LALR automata.
  */
--(void)processText:(NSString *)text;
+-(void)processText:(NSString *)text forSenderId:(NSString *)senderId;
 @end

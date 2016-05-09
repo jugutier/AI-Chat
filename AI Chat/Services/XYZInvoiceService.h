@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "XYZInvoiceVM.h"
-@interface XYZInvoiceService : NSObject
 
+@interface XYZInvoiceService : NSObject
+/**
+ * Access the shared instance singleton.
+ */
++(instancetype)sharedInstance;
 /**
  * Gets the current invoice for a given customerID;
  */

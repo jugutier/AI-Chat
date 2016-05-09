@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "XYZInvoiceView.h"
-@interface XYZInvoiceVM : NSObject<XYZInvoiceViewModel>
+@interface XYZInvoiceVM : QBChatMessage<XYZInvoiceViewModel>
 
 @property(nonatomic,retain) NSString * accountNumber;
 @property(nonatomic,retain) NSString * productPrice;

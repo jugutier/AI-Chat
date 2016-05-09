@@ -7,7 +7,7 @@
 //
 
 #import "XYZAIService.h"
-//#import "QBChatMessage.h"
+#import "XYZInvoiceService.h"
 
 @implementation XYZAIService
 
@@ -21,15 +21,25 @@
     return sharedInstance;
 }
 
--(void)processText:(NSString *)text
+-(void)processText:(NSString *)text forSenderId:(NSString *)senderId
 {
-    QBChatMessage *message3 = [QBChatMessage message];
-    message3.senderID = 20001;
-    message3.senderNick = @"Joe C. ";
-    message3.text = text;
-    message3.dateSent = [NSDate dateWithTimeInterval:6.0f sinceDate:[NSDate date]];
-    [self performSelector:@selector(handleData:) withObject:message3 afterDelay:0.8];
-    //[self.delegate didFinishProcessingWithData:message3];
+    QBChatMessage *message;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@",
+                              @"bill"];
+    BOOL hasBill = [predicate evaluateWithObject:text];
+    if(hasBill)
+    {
+        message = [[XYZInvoiceService sharedInstance]invoiceForCustomer:senderId];
+        message.senderID = QMMessageTypeInvoice;
+    }else
+    {
+        message = [QBChatMessage message];
+        message.senderID = 20001;
+        message.text = text;
+    }
+    message.senderNick = @"Joe C. ";
+    message.dateSent = [NSDate dateWithTimeInterval:6.0f sinceDate:[NSDate date]];
+    [self performSelector:@selector(handleData:) withObject:message afterDelay:0.8];
 }
 -(void)handleData:(id)data
 {

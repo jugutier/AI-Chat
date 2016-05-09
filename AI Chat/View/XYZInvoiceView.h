@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "QMChatCell.h"
 @protocol XYZInvoiceViewModel <NSObject>
 - (NSString *) accountNumber;
 - (NSString *) productPrice;
@@ -17,7 +17,7 @@
 
 @end
 
-@interface XYZInvoiceView : UIView
+@interface XYZInvoiceView : QMChatCell
 
 
 @property(nonatomic,retain) IBOutlet UILabel * accountNumber;
@@ -27,5 +27,5 @@
 @property(nonatomic,retain) IBOutlet UILabel * dueDate;
 
 - (void)populateFromViewModel:(id<XYZInvoiceViewModel>)viewModel;
-
++ (NSString *)cellReuseIdentifier;
 @end

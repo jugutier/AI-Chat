@@ -11,6 +11,7 @@
 #import "UIImage+AIChat.h"
 #import "UIFont+AIChat.h"
 #import "UIColor+AIChat.h"
+#import "XYZChatKeys.h"
 
 #import <Quickblox/Quickblox.h>
 

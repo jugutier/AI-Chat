@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "XYZChatViewController.h"
-
 @interface AppDelegate ()
 
 @end
@@ -24,11 +23,11 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:chatVC];   
     
     self.window.rootViewController = navController;
-    [QBSettings setAccountKey:@"testtest"];
-    [QBSettings setApplicationID:40416];
-    [QBSettings setAuthKey:@"bZFzCGBwVxfn7dw"];
-    [QBSettings setAuthSecret:@"ZyXkazq2a5W3sf8"];
     [self.window makeKeyAndVisible];
+    [QBSettings setAccountKey:XYZ_accountKey];
+    [QBSettings setApplicationID:XYZ_appID];
+    [QBSettings setAuthKey:XYZ_authKey];
+    [QBSettings setAuthSecret:XYZ_authSecret];
     return YES;
 }
 

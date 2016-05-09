@@ -10,12 +10,15 @@
 
 @implementation XYZInvoiceView
 
-- (instancetype)init
++ (UINib *)nib
 {
-    NSString *nibName = NSStringFromClass([self class]);
-    self = [[[UINib nibWithNibName:nibName bundle:nil] instantiateWithOwner:nil
-                                                                    options:nil] firstObject];
-    return self;
+    return [UINib nibWithNibName:[self cellReuseIdentifier] bundle:[NSBundle bundleForClass:[self class]]];
+}
+
++ (NSString *)cellReuseIdentifier
+{
+    
+    return NSStringFromClass([self class]);
 }
 
 - (void)populateFromViewModel:(id<XYZInvoiceViewModel>)viewModel
@@ -26,18 +29,22 @@
     _total.text = [viewModel total];
     _dueDate.text = [viewModel dueDate];
 }
-//
-//- (void)awakeFromNib {
-//    
-//    [super awakeFromNib];
-//    self.containerView.bgColor = [UIColor whiteColor];
-//}
-//
-//+ (QMChatCellLayoutModel)layoutModel {
-//    
-//    QMChatCellLayoutModel defaultLayoutModel = [super layoutModel];
-//    defaultLayoutModel.containerInsets = UIEdgeInsetsMake(4, 15, 4, 4);
-//    
-//    return defaultLayoutModel;
-//}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.containerView.bgColor = [UIColor whiteColor];
+}
+
++ (QMChatCellLayoutModel)layoutModel
+{
+    QMChatCellLayoutModel defaultLayoutModel = [super layoutModel];
+    defaultLayoutModel.avatarSize = CGSizeMake(0, 0);
+    defaultLayoutModel.containerInsets = UIEdgeInsetsMake(4, 4, 4, 15),
+    defaultLayoutModel.topLabelHeight = 0;
+    defaultLayoutModel.bottomLabelHeight = 14;
+    
+    return defaultLayoutModel;
+}
+
 @end

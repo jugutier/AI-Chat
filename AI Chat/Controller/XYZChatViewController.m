@@ -9,17 +9,7 @@
 #import "XYZChatViewController.h"
 #import "XYZTextFormatter.h"
 #import "XYZAIService.h"
-NS_ENUM(NSUInteger, QMMessageType) {
-    
-    QMMessageTypeText = 0,
-    QMMessageTypeCreateGroupDialog = 1,
-    QMMessageTypeUpdateGroupDialog = 2,
-    
-    QMMessageTypeContactRequest = 4,
-    QMMessageTypeAcceptContactRequest,
-    QMMessageTypeRejectContactRequest,
-    QMMessageTypeDeleteContactRequest
-};
+#import "XYZInvoiceService.h"
 
 @interface XYZChatViewController () <XYZAIServiceDelegate>
 
@@ -31,17 +21,20 @@ NS_ENUM(NSUInteger, QMMessageType) {
 
 -(instancetype)init
 {
-    if (self = [super init]) {
+    if (self = [super init])
+    {
         _formatter = [[XYZTextFormatter alloc]init];
         [XYZAIService sharedInstance].delegate = self;
     }
     return self;
 }
-- (NSTimeInterval)timeIntervalBetweenSections {
+- (NSTimeInterval)timeIntervalBetweenSections
+{
     return 300.0f;
 }
 
-- (CGFloat)heightForSectionHeader {
+- (CGFloat)heightForSectionHeader
+{
     return 40.0f;
 }
 
@@ -49,50 +42,32 @@ NS_ENUM(NSUInteger, QMMessageType) {
     [super viewDidLoad];
     
     self.senderID = 2000;
-    self.senderDisplayName = @"hello";
+    self.senderDisplayName = @"Me";
     self.title = @"CHAT WITH US";
     [self.navigationController.navigationBar setTitleTextAttributes:
         @{ NSFontAttributeName: [UIFont titleFont],
            NSForegroundColorAttributeName: [UIColor titleColor]
         }];
-
-//    //
-//    //
-//    QBChatMessage *message2 = [QBChatMessage message];
-//    message2.senderID = self.senderID;
-//    message2.text = @"Why Q-municate is a right choice?";
-//    message2.dateSent = [NSDate dateWithTimeInterval:-9.0f sinceDate:[NSDate date]];
-//    //
-//    //
-//    QBChatMessage *message3 = [QBChatMessage message];
-//    message3.senderID = 20001;
-//    message3.senderNick = @"Andrey M. ";
-//    //message3.customParameters = [@{@"nick": @"Andrey M."} mutableCopy];
-//    message3.text = @"Q-municate comes with powerful instant messaging right out of the box. Powered by the flexible XMPP protocol and Quickblox signalling technologies, with compatibility for server-side chat history, group chats, attachments and user avatars, it's pretty powerful. It also has chat bubbles and user presence (online/offline).";
-//    message3.dateSent = [NSDate dateWithTimeInterval:-6.0f sinceDate:[NSDate date]];
-//    //
-//    //
-//    // message with an attachment
-//    //
-//    QBChatMessage *message4 = [QBChatMessage message];
-//    message4.ID = @"4";
-//    message4.senderID = 20001;
-//    message4.senderNick = @"Andrey M.";
-//    QBChatAttachment *attachment = [QBChatAttachment new];
-//    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quickblox-image" ofType:@"png"];
-//    attachment.url = imagePath;
-//    message4.attachments = @[attachment];
-//    message4.dateSent = [NSDate dateWithTimeInterval:-3.0f sinceDate:[NSDate date]];
+    
+    UINib *invoiceNib = [XYZInvoiceView nib];
+    NSString *invoiceIdentifier = [XYZInvoiceView cellReuseIdentifier];
+    [self.collectionView  registerNib:invoiceNib forCellWithReuseIdentifier:invoiceIdentifier];
+    
+    
+//    QBChatMessage *message = [[XYZInvoiceService sharedInstance]invoiceForCustomer:@"1234"];
+//    message.senderID = QMMessageTypeInvoice;
+//    message.dateSent = [NSDate date];
 //    
-//    [self.chatSectionManager addMessages:@[ message2, message3, message4]];
+//    [self.chatSectionManager addMessage:message];
 }
+
 #pragma mark - XYZAIServiceDelegate
 -(void)didFinishProcessingWithData:(id)data
 {    
     [self.chatSectionManager addMessage:(QBChatMessage*)data];
 }
-#pragma mark Tool bar Actions
 
+#pragma mark Tool bar Actions
 - (void)didPressSendButton:(UIButton *)button
            withMessageText:(NSString *)text
                   senderId:(NSUInteger)senderId
@@ -103,10 +78,11 @@ NS_ENUM(NSUInteger, QMMessageType) {
     message.text = text;
     message.senderID = senderId;
     message.dateSent = [NSDate date];
-    [[XYZAIService sharedInstance] processText:text];
     [self.chatSectionManager addMessage:message];
-    
     [self finishSendingMessageAnimated:YES];
+    
+    // The AI Service processes the input in search for useful information to the user.
+    [[XYZAIService sharedInstance] processText:text forSenderId:[NSString stringWithFormat:@"%d",senderId]];
 }
 
 - (void)didPickAttachmentImage:(UIImage *)image {
@@ -144,36 +120,47 @@ NS_ENUM(NSUInteger, QMMessageType) {
 
 - (Class)viewClassForItem:(QBChatMessage *)item {
     
-    if (item.senderID == QMMessageTypeContactRequest) {
-        
-        if (item.senderID != self.senderID) {
-            
+    if (item.senderID == QMMessageTypeContactRequest)
+    {
+        if (item.senderID != self.senderID)
+        {
             return [QMChatContactRequestCell class];
         }
     }
     
-    else if (item.senderID == QMMessageTypeRejectContactRequest) {
-        
+    else if (item.senderID == QMMessageTypeRejectContactRequest)
+    {
         return [QMChatNotificationCell class];
     }
     
-    else if (item.senderID == QMMessageTypeAcceptContactRequest) {
-        
+    else if (item.senderID == QMMessageTypeAcceptContactRequest)
+    {
         return [QMChatNotificationCell class];
     }
-    else {
-        
-        if (item.senderID != self.senderID) {
-            if ((item.attachments != nil && item.attachments.count > 0)) {
+    else if (item.senderID == QMMessageTypeInvoice)
+    {
+        return [XYZInvoiceView class];
+    }
+    else
+    {
+        if (item.senderID != self.senderID)
+        {
+            if ((item.attachments != nil && item.attachments.count > 0))
+            {
                 return [QMChatAttachmentIncomingCell class];
-                //return [QMChatAttachmentIncomingCell class];
-            } else {
+            } else
+            {
                 return [QMChatIncomingCell class];
             }
-        } else {
-            if ((item.attachments != nil && item.attachments.count > 0)) {
+        }
+        else
+        {
+            if ((item.attachments != nil && item.attachments.count > 0))
+            {
                 return [QMChatAttachmentOutgoingCell class];
-            } else {
+            }
+            else
+            {
                 return [QMChatOutgoingCell class];
             }
         }
@@ -182,15 +169,37 @@ NS_ENUM(NSUInteger, QMMessageType) {
     return nil;
 }
 
+//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    QMChatCell * cell = (QMChatCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+//    XYZInvoiceVM *item = (XYZInvoiceVM *) [self.chatSectionManager messageForIndexPath:indexPath];
+//    XYZInvoiceView * invoiceView = [[XYZInvoiceView alloc]init];
+//    [invoiceView populateFromViewModel:item];
+//    [cell.containerView addSubview:invoiceView];
+//    
+//    return cell;
+//}
+
 - (CGSize)collectionView:(QMChatCollectionView *)collectionView dynamicSizeAtIndexPath:(NSIndexPath *)indexPath maxWidth:(CGFloat)maxWidth {
-    
+       
     QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
     Class viewClass = [self viewClassForItem:item];
     CGSize size;
     
-    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) {
+    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class])
+    {
         size = CGSizeMake(MIN(200, maxWidth), 200);
-    } else {
+    }
+    else if ( viewClass == [XYZInvoiceView class])
+    {
+//        XYZInvoiceView* invoiceView = (XYZInvoiceView *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+        //[self.collectionView cellForItemAtIndexPath:indexPath];
+        NSLog(@"MyClass");
+//        CGSize test = [((UICollectionViewCell *)item) systemLayoutSizeFittingSize:UILayoutFittingExpandedSize];
+        size = CGSizeMake(240, 500);
+    }
+    else
+    {
         NSAttributedString *attributedString = [self attributedStringForItem:item];
         
         size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
@@ -201,14 +210,15 @@ NS_ENUM(NSUInteger, QMMessageType) {
     return size;
 }
 
-- (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath
+{
     
     QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
     
     CGSize size;
     
-    if (item != nil) {
-        
+    if (item != nil)
+    {
         NSAttributedString *attributedString =
         [item senderID] == self.senderID ?  [self bottomLabelAttributedStringForItem:item] : [self topLabelAttributedStringForItem:item];
         
@@ -238,7 +248,8 @@ NS_ENUM(NSUInteger, QMMessageType) {
     [super collectionView:collectionView configureCell:cell forIndexPath:indexPath];
 }
 
-- (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
+- (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath
+{
     
     QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
     QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
@@ -258,8 +269,10 @@ NS_ENUM(NSUInteger, QMMessageType) {
 }
 #pragma mark - XYZTextFormatter
 
-- (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
-    if ([messageItem.text length] <= 0) {
+- (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem
+{
+    if ([messageItem.text length] <= 0)
+    {
         return nil;
     }
     BOOL isLocal = ([messageItem senderID] == self.senderID) ;
