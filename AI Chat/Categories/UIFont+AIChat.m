@@ -15,7 +15,7 @@
 }
 +(UIFont *)titleFont
 {
-    return [UIFont fontWithName:@"Helvetica" size:18];
+    return [UIFont fontWithName:@"Helvetica Neue" size:18];
 }
 +(UIFont *)itemFont
 {

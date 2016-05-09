@@ -27,7 +27,12 @@
     message3.senderID = 20001;
     message3.senderNick = @"Joe C. ";
     message3.text = text;
-    message3.dateSent = [NSDate dateWithTimeInterval:-6.0f sinceDate:[NSDate date]];
+    message3.dateSent = [NSDate dateWithTimeInterval:6.0f sinceDate:[NSDate date]];
+    [self performSelector:@selector(handleData:) withObject:message3 afterDelay:0.8];
+    //[self.delegate didFinishProcessingWithData:message3];
 }
-
+-(void)handleData:(id)data
+{
+    [self.delegate didFinishProcessingWithData:data];
+}
 @end

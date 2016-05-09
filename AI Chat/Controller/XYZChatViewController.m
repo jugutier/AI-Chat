@@ -8,6 +8,7 @@
 
 #import "XYZChatViewController.h"
 #import "XYZTextFormatter.h"
+#import "XYZAIService.h"
 NS_ENUM(NSUInteger, QMMessageType) {
     
     QMMessageTypeText = 0,
@@ -20,7 +21,7 @@ NS_ENUM(NSUInteger, QMMessageType) {
     QMMessageTypeDeleteContactRequest
 };
 
-@interface XYZChatViewController ()
+@interface XYZChatViewController () <XYZAIServiceDelegate>
 
 @property(nonatomic,retain) XYZTextFormatter * formatter;
 
@@ -32,6 +33,7 @@ NS_ENUM(NSUInteger, QMMessageType) {
 {
     if (self = [super init]) {
         _formatter = [[XYZTextFormatter alloc]init];
+        [XYZAIService sharedInstance].delegate = self;
     }
     return self;
 }
@@ -54,38 +56,41 @@ NS_ENUM(NSUInteger, QMMessageType) {
            NSForegroundColorAttributeName: [UIColor titleColor]
         }];
 
-    //
-    //
-    QBChatMessage *message2 = [QBChatMessage message];
-    message2.senderID = self.senderID;
-    message2.senderNick = @"Me";
-    message2.text = @"Why Q-municate is a right choice?";
-    message2.dateSent = [NSDate dateWithTimeInterval:-9.0f sinceDate:[NSDate date]];
-    //
-    //
-    QBChatMessage *message3 = [QBChatMessage message];
-    message3.senderID = 20001;
-    message3.senderNick = @"Andrey M. ";
-    //message3.customParameters = [@{@"nick": @"Andrey M."} mutableCopy];
-    message3.text = @"Q-municate comes with powerful instant messaging right out of the box. Powered by the flexible XMPP protocol and Quickblox signalling technologies, with compatibility for server-side chat history, group chats, attachments and user avatars, it's pretty powerful. It also has chat bubbles and user presence (online/offline).";
-    message3.dateSent = [NSDate dateWithTimeInterval:-6.0f sinceDate:[NSDate date]];
-    //
-    //
-    // message with an attachment
-    //
-    QBChatMessage *message4 = [QBChatMessage message];
-    message4.ID = @"4";
-    message4.senderID = 20001;
-    message4.senderNick = @"Andrey M.";
-    QBChatAttachment *attachment = [QBChatAttachment new];
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quickblox-image" ofType:@"png"];
-    attachment.url = imagePath;
-    message4.attachments = @[attachment];
-    message4.dateSent = [NSDate dateWithTimeInterval:-3.0f sinceDate:[NSDate date]];
-    
-    [self.chatSectionManager addMessages:@[ message2, message3, message4]];
+//    //
+//    //
+//    QBChatMessage *message2 = [QBChatMessage message];
+//    message2.senderID = self.senderID;
+//    message2.text = @"Why Q-municate is a right choice?";
+//    message2.dateSent = [NSDate dateWithTimeInterval:-9.0f sinceDate:[NSDate date]];
+//    //
+//    //
+//    QBChatMessage *message3 = [QBChatMessage message];
+//    message3.senderID = 20001;
+//    message3.senderNick = @"Andrey M. ";
+//    //message3.customParameters = [@{@"nick": @"Andrey M."} mutableCopy];
+//    message3.text = @"Q-municate comes with powerful instant messaging right out of the box. Powered by the flexible XMPP protocol and Quickblox signalling technologies, with compatibility for server-side chat history, group chats, attachments and user avatars, it's pretty powerful. It also has chat bubbles and user presence (online/offline).";
+//    message3.dateSent = [NSDate dateWithTimeInterval:-6.0f sinceDate:[NSDate date]];
+//    //
+//    //
+//    // message with an attachment
+//    //
+//    QBChatMessage *message4 = [QBChatMessage message];
+//    message4.ID = @"4";
+//    message4.senderID = 20001;
+//    message4.senderNick = @"Andrey M.";
+//    QBChatAttachment *attachment = [QBChatAttachment new];
+//    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quickblox-image" ofType:@"png"];
+//    attachment.url = imagePath;
+//    message4.attachments = @[attachment];
+//    message4.dateSent = [NSDate dateWithTimeInterval:-3.0f sinceDate:[NSDate date]];
+//    
+//    [self.chatSectionManager addMessages:@[ message2, message3, message4]];
 }
-
+#pragma mark - XYZAIServiceDelegate
+-(void)didFinishProcessingWithData:(id)data
+{    
+    [self.chatSectionManager addMessage:(QBChatMessage*)data];
+}
 #pragma mark Tool bar Actions
 
 - (void)didPressSendButton:(UIButton *)button
@@ -98,7 +103,7 @@ NS_ENUM(NSUInteger, QMMessageType) {
     message.text = text;
     message.senderID = senderId;
     message.dateSent = [NSDate date];
-    
+    [[XYZAIService sharedInstance] processText:text];
     [self.chatSectionManager addMessage:message];
     
     [self finishSendingMessageAnimated:YES];

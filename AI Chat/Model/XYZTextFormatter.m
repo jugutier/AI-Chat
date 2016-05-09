@@ -12,6 +12,7 @@
 
 - (NSAttributedString *)topLabelAttributedStringForParticipant:(BOOL)isLocal andNick:(NSString *)nickname
 {
+    if(!nickname) return nil;
     UIFont *font = [UIFont nicknameFont];
     
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:[UIColor remoteNicknameColor], NSFontAttributeName:font};
@@ -23,7 +24,7 @@
 
 - (NSAttributedString *)bottomLabelAttributedStringForParticipant:(BOOL)isLocal andDate:(NSDate *)date
 {
-    
+    if (!date) return nil;
     UIColor *textColor = isLocal? [UIColor localTimestampColor] : [UIColor remoteTimestampColor];
     UIFont *font = [UIFont timeStampFont];
     
