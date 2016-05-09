@@ -26,4 +26,18 @@
     _total.text = [viewModel total];
     _dueDate.text = [viewModel dueDate];
 }
+//
+//- (void)awakeFromNib {
+//    
+//    [super awakeFromNib];
+//    self.containerView.bgColor = [UIColor whiteColor];
+//}
+//
+//+ (QMChatCellLayoutModel)layoutModel {
+//    
+//    QMChatCellLayoutModel defaultLayoutModel = [super layoutModel];
+//    defaultLayoutModel.containerInsets = UIEdgeInsetsMake(4, 15, 4, 4);
+//    
+//    return defaultLayoutModel;
+//}
 @end

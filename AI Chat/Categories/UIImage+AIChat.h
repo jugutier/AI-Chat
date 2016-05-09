@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage (fixOrientation)
+@interface UIImage (AIChat)
 
 - (UIImage *)fixOrientation;
-
+- (UIImage *)resizedImageForChat;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "XYZChatViewController.h"
-
+#import "XYZTextFormatter.h"
 NS_ENUM(NSUInteger, QMMessageType) {
     
     QMMessageTypeText = 0,
@@ -20,8 +20,21 @@ NS_ENUM(NSUInteger, QMMessageType) {
     QMMessageTypeDeleteContactRequest
 };
 
+@interface XYZChatViewController ()
+
+@property(nonatomic,retain) XYZTextFormatter * formatter;
+
+@end
+
 @implementation XYZChatViewController
 
+-(instancetype)init
+{
+    if (self = [super init]) {
+        _formatter = [[XYZTextFormatter alloc]init];
+    }
+    return self;
+}
 - (NSTimeInterval)timeIntervalBetweenSections {
     return 300.0f;
 }
@@ -35,12 +48,17 @@ NS_ENUM(NSUInteger, QMMessageType) {
     
     self.senderID = 2000;
     self.senderDisplayName = @"hello";
-    self.title = @"Chat";
+    self.title = @"CHAT WITH US";
+    [self.navigationController.navigationBar setTitleTextAttributes:
+        @{ NSFontAttributeName: [UIFont titleFont],
+           NSForegroundColorAttributeName: [UIColor titleColor]
+        }];
+
     //
     //
     QBChatMessage *message2 = [QBChatMessage message];
     message2.senderID = self.senderID;
-    message2.senderNick = @"Andrey I.";
+    message2.senderNick = @"Me";
     message2.text = @"Why Q-municate is a right choice?";
     message2.dateSent = [NSDate dateWithTimeInterval:-9.0f sinceDate:[NSDate date]];
     //
@@ -90,7 +108,7 @@ NS_ENUM(NSUInteger, QMMessageType) {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        UIImage *resizedImage = [self resizedImageFromImage:[image fixOrientation]];
+        UIImage *resizedImage = [[image fixOrientation] resizedImageForChat];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
@@ -143,6 +161,7 @@ NS_ENUM(NSUInteger, QMMessageType) {
         if (item.senderID != self.senderID) {
             if ((item.attachments != nil && item.attachments.count > 0)) {
                 return [QMChatAttachmentIncomingCell class];
+                //return [QMChatAttachmentIncomingCell class];
             } else {
                 return [QMChatIncomingCell class];
             }
@@ -232,82 +251,25 @@ NS_ENUM(NSUInteger, QMMessageType) {
     
     return layoutModel;
 }
+#pragma mark - XYZTextFormatter
 
 - (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
-    
-    UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor colorWithWhite:0.290 alpha:1.000];
-    UIFont *font = [UIFont fontWithName:@"Helvetica" size:15];
-    
-    NSDictionary *attributes = @{NSForegroundColorAttributeName : textColor,
-                                 NSFontAttributeName : font};
-    
-    NSMutableAttributedString *attrStr;
-    
-    if ([messageItem.text length] > 0) {
-        
-        attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text attributes:attributes];
+    if ([messageItem.text length] <= 0) {
+        return nil;
     }
-    
-    return attrStr;
+    BOOL isLocal = ([messageItem senderID] == self.senderID) ;
+    return [self.formatter itemLabelAttributedStringForParticipant:isLocal andText:messageItem.text];
 }
 
 - (NSAttributedString *)topLabelAttributedStringForItem:(QBChatMessage *)messageItem {
-    
-    UIFont *font = [UIFont fontWithName:@"Helvetica" size:14];
-    
-    if ([messageItem senderID] == self.senderID) {
-        return nil;
-    }
-    
-    NSDictionary *attributes = @{ NSForegroundColorAttributeName:[UIColor colorWithRed:0.184 green:0.467 blue:0.733 alpha:1.000], NSFontAttributeName:font};
-    
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.senderNick attributes:attributes];
-    
-    return attrStr;
+    BOOL isLocal = ([messageItem senderID] == self.senderID) ;
+    return [self.formatter topLabelAttributedStringForParticipant:isLocal andNick:messageItem.senderNick];
 }
 
-- (NSAttributedString *)bottomLabelAttributedStringForItem:(QBChatMessage *)messageItem {
-    
-    UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor colorWithWhite:1.000 alpha:0.510] : [UIColor colorWithWhite:0.000 alpha:0.490];
-    UIFont *font = [UIFont fontWithName:@"Helvetica" size:12];
-    
-    NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
-    NSMutableAttributedString *attrStr =
-    [[NSMutableAttributedString alloc] initWithString:[self timeStampWithDate:messageItem.dateSent]
-                                           attributes:attributes];
-    
-    return attrStr;
-}
-
-- (NSString *)timeStampWithDate:(NSDate *)date {
-    
-    static NSDateFormatter *dateFormatter = nil;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"HH:mm";
-    });
-    
-    NSString *timeStamp = [dateFormatter stringFromDate:date];
-    
-    return timeStamp;
-}
-
-- (UIImage *)resizedImageFromImage:(UIImage *)image
+- (NSAttributedString *)bottomLabelAttributedStringForItem:(QBChatMessage *)messageItem
 {
-    CGFloat largestSide = image.size.width > image.size.height ? image.size.width : image.size.height;
-    CGFloat scaleCoefficient = largestSide / 560.0f;
-    CGSize newSize = CGSizeMake(image.size.width / scaleCoefficient, image.size.height / scaleCoefficient);
-    
-    UIGraphicsBeginImageContext(newSize);
-    
-    [image drawInRect:(CGRect){0, 0, newSize.width, newSize.height}];
-    UIImage* resizedImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return resizedImage;
+    BOOL isLocal = ([messageItem senderID] == self.senderID) ;
+    return [self.formatter bottomLabelAttributedStringForParticipant:isLocal andDate:messageItem.dateSent];
 }
 
 @end

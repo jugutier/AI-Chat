@@ -8,7 +8,7 @@
 
 #ifdef __OBJC__
 
-#import "UIImage+fixOrientation.h"
+#import "UIImage+AIChat.h"
 #import "UIFont+AIChat.h"
 #import "UIColor+AIChat.h"
 

@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface UIColor (AIChat)
-
++(UIColor *)titleColor;
++(UIColor *)localChatColor;
++(UIColor *)localTimestampColor;
++(UIColor *)remoteNicknameColor;
++(UIColor *)remoteChatColor;
++(UIColor *)remoteTimestampColor;
 @end

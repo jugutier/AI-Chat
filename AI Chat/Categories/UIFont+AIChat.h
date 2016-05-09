@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface UIFont (AIChat)
--(UIFont *)mainColor;
++(UIFont *)nicknameFont;
++(UIFont *)titleFont;
++(UIFont *)itemFont;
++(UIFont *)timeStampFont;
 @end

@@ -57,7 +57,7 @@
  *
  *  @warning *Deprecated in Quickblox iOS SDK 2.7.1:* Sender nick is sender ID according to Quickblox specification. Use customParameters in order to send your own sender name.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *senderNick DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.1. Use customParameters in order to send your own sender name.");
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *senderNick;
 
 /**
  *  Determines whether message was delayed

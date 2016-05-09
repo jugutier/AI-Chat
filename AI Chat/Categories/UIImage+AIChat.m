@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 QuickBlox Team. All rights reserved.
 //
 
-#import "UIImage+fixOrientation.h"
+#import "UIImage+AIChat.h"
 
-@implementation UIImage (fixOrientation)
+@implementation UIImage (AIChat)
 
 - (UIImage *)fixOrientation {
     
@@ -90,5 +90,20 @@
     return img;
 }
 
+- (UIImage *)resizedImageForChat
+{
+    CGFloat largestSide = self.size.width > self.size.height ? self.size.width : self.size.height;
+    CGFloat scaleCoefficient = largestSide / 560.0f;
+    CGSize newSize = CGSizeMake(self.size.width / scaleCoefficient, self.size.height / scaleCoefficient);
+    
+    UIGraphicsBeginImageContext(newSize);
+    
+    [self drawInRect:(CGRect){0, 0, newSize.width, newSize.height}];
+    UIImage* resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return resizedImage;
+}
 
 @end

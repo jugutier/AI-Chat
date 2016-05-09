@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		710CC55E1CE0227600B44CFA /* XYZChatKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 710CC55D1CE0227600B44CFA /* XYZChatKeys.m */; };
+		710CC5621CE0238A00B44CFA /* XYZAIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 710CC5611CE0238A00B44CFA /* XYZAIService.m */; };
+		710CC5651CE0303900B44CFA /* XYZTextFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 710CC5641CE0303900B44CFA /* XYZTextFormatter.m */; };
 		713887AC1CDFB2E1006F2712 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 713887AB1CDFB2E1006F2712 /* main.m */; };
 		713887AF1CDFB2E1006F2712 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 713887AE1CDFB2E1006F2712 /* AppDelegate.m */; };
 		713887B21CDFB2E1006F2712 /* XYZChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713887B11CDFB2E1006F2712 /* XYZChatViewController.m */; };
@@ -14,7 +17,7 @@
 		713887BA1CDFB2E1006F2712 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 713887B81CDFB2E1006F2712 /* LaunchScreen.storyboard */; };
 		713887C71CDFF492006F2712 /* XYZInvoiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 713887C61CDFF492006F2712 /* XYZInvoiceView.m */; };
 		713887C91CDFF4B0006F2712 /* XYZInvoiceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 713887C81CDFF4B0006F2712 /* XYZInvoiceView.xib */; };
-		713887CD1CE00058006F2712 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 713887CC1CE00058006F2712 /* UIImage+fixOrientation.m */; };
+		713887CD1CE00058006F2712 /* UIImage+AIChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 713887CC1CE00058006F2712 /* UIImage+AIChat.m */; };
 		713887D01CE0023A006F2712 /* XYZInvoiceService.m in Sources */ = {isa = PBXBuildFile; fileRef = 713887CF1CE0023A006F2712 /* XYZInvoiceService.m */; };
 		713887D31CE002C1006F2712 /* XYZInvoiceVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 713887D21CE002C1006F2712 /* XYZInvoiceVM.m */; };
 		713887D61CE01323006F2712 /* UIFont+AIChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 713887D51CE01323006F2712 /* UIFont+AIChat.m */; };
@@ -24,20 +27,26 @@
 
 /* Begin PBXFileReference section */
 		5285C9864499901014C0224D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		710CC55C1CE0227600B44CFA /* XYZChatKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYZChatKeys.h; sourceTree = "<group>"; };
+		710CC55D1CE0227600B44CFA /* XYZChatKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYZChatKeys.m; sourceTree = "<group>"; };
+		710CC5601CE0238A00B44CFA /* XYZAIService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYZAIService.h; sourceTree = "<group>"; };
+		710CC5611CE0238A00B44CFA /* XYZAIService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYZAIService.m; sourceTree = "<group>"; };
+		710CC5631CE0303900B44CFA /* XYZTextFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYZTextFormatter.h; sourceTree = "<group>"; };
+		710CC5641CE0303900B44CFA /* XYZTextFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYZTextFormatter.m; sourceTree = "<group>"; };
 		713887A71CDFB2E1006F2712 /* AI Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AI Chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		713887AB1CDFB2E1006F2712 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		713887AD1CDFB2E1006F2712 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		713887AE1CDFB2E1006F2712 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		713887B01CDFB2E1006F2712 /* XYZChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XYZChatViewController.h; path = ../XYZChatViewController.h; sourceTree = "<group>"; };
-		713887B11CDFB2E1006F2712 /* XYZChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = XYZChatViewController.m; path = ../XYZChatViewController.m; sourceTree = "<group>"; };
+		713887B01CDFB2E1006F2712 /* XYZChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYZChatViewController.h; sourceTree = "<group>"; };
+		713887B11CDFB2E1006F2712 /* XYZChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYZChatViewController.m; sourceTree = "<group>"; };
 		713887B61CDFB2E1006F2712 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		713887B91CDFB2E1006F2712 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		713887BB1CDFB2E1006F2712 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		713887C51CDFF492006F2712 /* XYZInvoiceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYZInvoiceView.h; path = View/XYZInvoiceView.h; sourceTree = "<group>"; };
 		713887C61CDFF492006F2712 /* XYZInvoiceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYZInvoiceView.m; path = View/XYZInvoiceView.m; sourceTree = "<group>"; };
-		713887C81CDFF4B0006F2712 /* XYZInvoiceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XYZInvoiceView.xib; sourceTree = "<group>"; };
-		713887CB1CE00058006F2712 /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
-		713887CC1CE00058006F2712 /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
+		713887C81CDFF4B0006F2712 /* XYZInvoiceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XYZInvoiceView.xib; path = View/XYZInvoiceView.xib; sourceTree = "<group>"; };
+		713887CB1CE00058006F2712 /* UIImage+AIChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AIChat.h"; sourceTree = "<group>"; };
+		713887CC1CE00058006F2712 /* UIImage+AIChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AIChat.m"; sourceTree = "<group>"; };
 		713887CE1CE0023A006F2712 /* XYZInvoiceService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYZInvoiceService.h; sourceTree = "<group>"; };
 		713887CF1CE0023A006F2712 /* XYZInvoiceService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYZInvoiceService.m; sourceTree = "<group>"; };
 		713887D11CE002C1006F2712 /* XYZInvoiceVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYZInvoiceVM.h; sourceTree = "<group>"; };
@@ -63,6 +72,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		710CC55F1CE0232A00B44CFA /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				710CC55C1CE0227600B44CFA /* XYZChatKeys.h */,
+				710CC55D1CE0227600B44CFA /* XYZChatKeys.m */,
+				713887AD1CDFB2E1006F2712 /* AppDelegate.h */,
+				713887AE1CDFB2E1006F2712 /* AppDelegate.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		7138879E1CDFB2E1006F2712 = {
 			isa = PBXGroup;
 			children = (
@@ -97,15 +117,14 @@
 		713887AA1CDFB2E1006F2712 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				713887AD1CDFB2E1006F2712 /* AppDelegate.h */,
-				713887AE1CDFB2E1006F2712 /* AppDelegate.m */,
+				710CC55F1CE0232A00B44CFA /* Source */,
 				713887BB1CDFB2E1006F2712 /* Info.plist */,
 				713887B81CDFB2E1006F2712 /* LaunchScreen.storyboard */,
 				713887B61CDFB2E1006F2712 /* Assets.xcassets */,
 				713887AB1CDFB2E1006F2712 /* main.m */,
 				713887DA1CE01411006F2712 /* AIChat-prefix.pch */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		713887C11CDFF3A4006F2712 /* Controller */ = {
@@ -122,6 +141,8 @@
 			children = (
 				713887D11CE002C1006F2712 /* XYZInvoiceVM.h */,
 				713887D21CE002C1006F2712 /* XYZInvoiceVM.m */,
+				710CC5631CE0303900B44CFA /* XYZTextFormatter.h */,
+				710CC5641CE0303900B44CFA /* XYZTextFormatter.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -141,6 +162,8 @@
 			children = (
 				713887CE1CE0023A006F2712 /* XYZInvoiceService.h */,
 				713887CF1CE0023A006F2712 /* XYZInvoiceService.m */,
+				710CC5601CE0238A00B44CFA /* XYZAIService.h */,
+				710CC5611CE0238A00B44CFA /* XYZAIService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -148,8 +171,8 @@
 		713887CA1CE0003B006F2712 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				713887CB1CE00058006F2712 /* UIImage+fixOrientation.h */,
-				713887CC1CE00058006F2712 /* UIImage+fixOrientation.m */,
+				713887CB1CE00058006F2712 /* UIImage+AIChat.h */,
+				713887CC1CE00058006F2712 /* UIImage+AIChat.m */,
 				713887D41CE01323006F2712 /* UIFont+AIChat.h */,
 				713887D51CE01323006F2712 /* UIFont+AIChat.m */,
 				713887D71CE01396006F2712 /* UIColor+AIChat.h */,
@@ -296,13 +319,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				713887CD1CE00058006F2712 /* UIImage+fixOrientation.m in Sources */,
+				713887CD1CE00058006F2712 /* UIImage+AIChat.m in Sources */,
+				710CC55E1CE0227600B44CFA /* XYZChatKeys.m in Sources */,
 				713887D01CE0023A006F2712 /* XYZInvoiceService.m in Sources */,
+				710CC5621CE0238A00B44CFA /* XYZAIService.m in Sources */,
 				713887D31CE002C1006F2712 /* XYZInvoiceVM.m in Sources */,
 				713887B21CDFB2E1006F2712 /* XYZChatViewController.m in Sources */,
 				713887D61CE01323006F2712 /* UIFont+AIChat.m in Sources */,
 				713887AF1CDFB2E1006F2712 /* AppDelegate.m in Sources */,
 				713887C71CDFF492006F2712 /* XYZInvoiceView.m in Sources */,
+				710CC5651CE0303900B44CFA /* XYZTextFormatter.m in Sources */,
 				713887D91CE01396006F2712 /* UIColor+AIChat.m in Sources */,
 				713887AC1CDFB2E1006F2712 /* main.m in Sources */,
 			);
@@ -317,6 +343,7 @@
 				713887B91CDFB2E1006F2712 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -409,8 +436,8 @@
 			baseConfigurationReference = 5285C9864499901014C0224D /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/AI Chat/AIChat-prefix.pch";
-				INFOPLIST_FILE = "AI Chat/Info.plist";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/AI Chat/Supporting Files/AIChat-prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/AI Chat/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.testapp.AI-Chat";
@@ -423,8 +450,8 @@
 			baseConfigurationReference = EDEAFDEB9D6ABE62C01C0F01 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/AI Chat/AIChat-prefix.pch";
-				INFOPLIST_FILE = "AI Chat/Info.plist";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/AI Chat/Supporting Files/AIChat-prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/AI Chat/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.testapp.AI-Chat";
