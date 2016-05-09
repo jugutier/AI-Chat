@@ -38,8 +38,8 @@
         message.text = text;
     }
     message.senderNick = @"Joe C. ";
-    message.dateSent = [NSDate dateWithTimeInterval:6.0f sinceDate:[NSDate date]];
-    [self performSelector:@selector(handleData:) withObject:message afterDelay:0.8];
+    message.dateSent = [NSDate dateWithTimeInterval:1.0f sinceDate:[NSDate date]];
+    [self performSelector:@selector(handleData:) withObject:message afterDelay:1.0];
 }
 -(void)handleData:(id)data
 {
