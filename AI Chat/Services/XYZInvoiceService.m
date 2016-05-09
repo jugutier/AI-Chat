@@ -22,9 +22,9 @@
 -(XYZInvoiceVM *)invoiceForCustomer:(NSString *)customerID
 {    
     XYZInvoiceVM * currentInvoice = [XYZInvoiceVM message];
-    currentInvoice.accountNumber = @"1232123-12321231-2213213";
-    currentInvoice.productPrice = @"30.0";
-    currentInvoice.taxesSurchargesAndFees = @"2.00";
+    currentInvoice.accountNumber = @"1232123";
+    currentInvoice.productPrice = @"$30.0";
+    currentInvoice.taxesSurchargesAndFees = @"$2.00";
     currentInvoice.total = @"$123.00";
     currentInvoice.dueDate = @"5/8/16";
     return currentInvoice;

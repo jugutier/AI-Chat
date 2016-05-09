@@ -176,11 +176,8 @@
     }
     else if ( viewClass == [XYZInvoiceView class])
     {
-//        XYZInvoiceView* invoiceView = (XYZInvoiceView *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
-        //[self.collectionView cellForItemAtIndexPath:indexPath];
-        NSLog(@"MyClass");
-        XYZInvoiceView* invoiceStubView = [[XYZInvoiceView alloc]init];
-      CGSize test = [((UICollectionViewCell *)invoiceStubView) systemLayoutSizeFittingSize:UILayoutFittingExpandedSize];
+//        XYZInvoiceView* invoiceStubView = [[XYZInvoiceView alloc]init];
+//      CGSize test = [((UICollectionViewCell *)invoiceStubView) systemLayoutSizeFittingSize:UILayoutFittingExpandedSize];
         size = CGSizeMake(240, 500);
     }
     else
