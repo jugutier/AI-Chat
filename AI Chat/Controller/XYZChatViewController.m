@@ -179,7 +179,8 @@
 //        XYZInvoiceView* invoiceView = (XYZInvoiceView *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
         //[self.collectionView cellForItemAtIndexPath:indexPath];
         NSLog(@"MyClass");
-//        CGSize test = [((UICollectionViewCell *)item) systemLayoutSizeFittingSize:UILayoutFittingExpandedSize];
+        XYZInvoiceView* invoiceStubView = [[XYZInvoiceView alloc]init];
+      CGSize test = [((UICollectionViewCell *)invoiceStubView) systemLayoutSizeFittingSize:UILayoutFittingExpandedSize];
         size = CGSizeMake(240, 500);
     }
     else
